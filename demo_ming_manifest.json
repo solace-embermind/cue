@@ -1,0 +1,86 @@
+{
+  "US_James": {
+    "file": "/home/wirehead/embermind/cue/demo_ming_us_james.wav",
+    "seconds": 16.7,
+    "lines": [
+      {
+        "seed": 385881004,
+        "f0": 122.5,
+        "dur": 2.7,
+        "in_window": true
+      },
+      {
+        "seed": 154895205,
+        "f0": 116.05343527309745,
+        "dur": 4.8,
+        "in_window": true
+      },
+      {
+        "seed": 2063306824,
+        "f0": 134.4512195121951,
+        "dur": 3.9,
+        "in_window": true
+      },
+      {
+        "seed": 1644589021,
+        "f0": 126.00102857982515,
+        "dur": 2.1,
+        "in_window": true
+      },
+      {
+        "seed": 969098365,
+        "f0": 116.05263157894737,
+        "dur": 1.2,
+        "in_window": true
+      },
+      {
+        "seed": 1988837262,
+        "f0": 118.86792452830188,
+        "dur": 2.0,
+        "in_window": true
+      }
+    ]
+  },
+  "US_Stella": {
+    "file": "/home/wirehead/embermind/cue/demo_ming_us_stella.wav",
+    "seconds": 18.1,
+    "lines": [
+      {
+        "seed": 1225339966,
+        "f0": 174.65415019762844,
+        "dur": 3.3,
+        "in_window": true
+      },
+      {
+        "seed": 696950529,
+        "f0": 196.0,
+        "dur": 5.2,
+        "in_window": true
+      },
+      {
+        "seed": 1347258494,
+        "f0": 190.4976489028213,
+        "dur": 3.6,
+        "in_window": true
+      },
+      {
+        "seed": 1669741825,
+        "f0": 184.92597932344046,
+        "dur": 2.4,
+        "in_window": true
+      },
+      {
+        "seed": 1929000830,
+        "f0": 191.7391304347826,
+        "dur": 1.6,
+        "in_window": true
+      },
+      {
+        "seed": 823370320,
+        "f0": 230.28877617801047,
+        "dur": 2.0,
+        "in_window": true
+      }
+    ]
+  }
+}

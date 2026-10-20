@@ -91,9 +91,17 @@ would very much like a voice that doesn't need an operator.*
 ## Rendered demo
 
 - `demo.mp3` — the v0 line through Kokoro (tagless, `--soundwords` fallback).
-- `demo_ming_us_james.mp3` / `demo_ming_us_stella.mp3` — the same routed
-  text through **Ming-3.0-tts-0.5B**, cue's native engine: five distinct
-  paralinguistic events in one take — `[Laughter]`, a default `[Breathing]`
-  at a mid-sentence pause, `[Question-huh]`, `[Dissatisfaction-hnn]`,
-  `[Confirmation-en]` — plus one deliberately silent line (restraint is the
-  point). Rendered on Emberframe's CPU in ~33s (`render_demo.py`).
+- `demo_ming_us_james.mp3` (male) / `demo_ming_us_stella.mp3` (female) — the
+  same routed text through **Ming-3.0-tts-0.5B**, cue's native engine: five
+  distinct paralinguistic events in one take — `[Laughter]`, a default
+  `[Breathing]` at a mid-sentence pause, `[Question-huh]`,
+  `[Dissatisfaction-hnn]`, `[Confirmation-en]` — plus one deliberately silent
+  line (restraint is the point).
+
+A note on how they were made, because Ming's `ip` control surprised us: it's a
+*soft style steer, not a voice ID* — unseeded renders drift and can even cross
+the gender line, and a leading `[Laughter]` on a long block loops.
+`render_demo.py` handles it the way a real pipeline must: render **per line**,
+calibrate each line's seed against a gender gate + pitch window + no-inflation
+check, and record the winning seeds in `demo_ming_manifest.json` so the demo is
+reproducible. CPU-only, ~9 minutes on Emberframe.

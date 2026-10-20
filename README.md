@@ -43,13 +43,17 @@ For TTS backends **without** a tag vocabulary (e.g. Kokoro):
 | short question with `really / no way / what` | `[Question-huh]` |
 | short question (`how/what/can/is…`) | `[Question-en]` / `[Question-ah]` |
 | bare `yeah! / yes.` (≤2 words) | `[Confirmation-en]` |
+| **nothing decides** (long declarative with a mid-sentence pause) | `[Breathing]` — the default: when the router can't pick a stronger cue, the voice doesn't sit flat, it breathes at the pause |
 
 **Restraint rules (the hard part):**
 1. Manual tags in the text **always win** — a sentence with a manual tag gets
    no auto tags.
 2. One auto tag per sentence, and a global budget: **2 tags per 100 words**.
+   The default breath is exempt from the one-strong-tag cap (it *is* the
+   fallback) but still obeys the budget and sentence gap.
 3. Quoted spans (`"..."`, `'...'`) are read literally — never auto-tagged.
-4. Silence is a legal answer. Declarative prose stays declarative.
+4. Silence is a legal answer — but only for short lines. Long declaratives
+   with no cue still get their breath.
 
 ## Try it
 

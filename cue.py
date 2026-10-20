@@ -71,7 +71,6 @@ def analyze(sentence, idx, auto_count, budget_left, min_gap_ok):
     """
     plan = []
     has_manual = bool(MANUAL_TAG_RE.search(sentence))
-    # quoted spans are read literally — never auto-tag inside them
     quoted = [m.span() for m in re.finditer(r"\"[^\"]*\"|'[^']*'", sentence)]
 
     def in_quoted(pos):
@@ -79,6 +78,11 @@ def analyze(sentence, idx, auto_count, budget_left, min_gap_ok):
 
     def can_auto():
         return not has_manual and auto_count < 1 and budget_left > 0 and min_gap_ok
+
+    # breath is the undecided-fallback: no one-strong-tag cap, but still
+    # budgeted and gap-limited
+    def can_breath():
+        return not has_manual and budget_left > 0 and min_gap_ok
 
     # 1. sound words / insert words (token-level cues)
     for m in TOKEN_RE.finditer(sentence):
@@ -127,6 +131,21 @@ def analyze(sentence, idx, auto_count, budget_left, min_gap_ok):
     if re.search(r"^(yeah|yep|yes|sure|okay|ok|exactly|right)\b[.!?]*$", core, re.I):
         if can_auto() and len(core.split()) <= 2:
             plan.append(("append", None, "Confirmation-en", "short affirmation"))
+
+    # 5. default breath (Bradley 10-20): when nothing else decides, the voice
+    #    doesn't sit flat — it breathes, at a natural pause. The breath is the
+    #    *fallback*, so it is exempt from the one-strong-tag cap but still
+    #    obeys the budget and the sentence gap. Gated: declarative, >=8 words,
+    #    a real pause exists (a comma in the 30-70% zone so the breath lands
+    #    on an actual breath point). Short lines stay silent.
+    if not plan and core and not core.endswith("?"):
+        if can_breath() and len(core.split()) >= 8:
+            for cm in re.finditer(",", core):
+                if 0.30 <= cm.start() / len(core) <= 0.70:
+                    pos = cm.start() + 1
+                    plan.append(("insert_before", (pos, pos), "Breathing",
+                                 "default breath at pause"))
+                    break
     return plan, 0, False
 
 
@@ -260,6 +279,14 @@ SAMPLES = [
      {"Confirmation-en"}, None),
     ("haha wow, that's fast.",
      {"Laughter"}, None),  # restraint: two sound words, first wins, rest stays text
+    ("The router is really a compiler intermediate, and speech is just the emit pass.",
+     {"Breathing"}, None),  # default breath: long declarative, comma in the pause zone
+    ("The build passed on the first try.",
+     None, None),  # no pause, no breath: silence stays correct
+    ("well, fine.",
+     None, None),  # too short for the breath default
+    ("[Sigh] I suppose, in the end, that was always going to be the answer.",
+     None, 1),  # manual tag in sentence -> breath suppressed
 ]
 
 

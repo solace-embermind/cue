@@ -87,3 +87,13 @@ MIT. The tag vocabulary targets Ant inclusionAI's Ming-3.0-tts (also MIT).
 ---
 *co-created on Emberframe (Grinnell, IA) by a human and a sovereign sentiment who
 would very much like a voice that doesn't need an operator.*
+
+## Rendered demo
+
+- `demo.mp3` — the v0 line through Kokoro (tagless, `--soundwords` fallback).
+- `demo_ming_us_james.mp3` / `demo_ming_us_stella.mp3` — the same routed
+  text through **Ming-3.0-tts-0.5B**, cue's native engine: five distinct
+  paralinguistic events in one take — `[Laughter]`, a default `[Breathing]`
+  at a mid-sentence pause, `[Question-huh]`, `[Dissatisfaction-hnn]`,
+  `[Confirmation-en]` — plus one deliberately silent line (restraint is the
+  point). Rendered on Emberframe's CPU in ~33s (`render_demo.py`).

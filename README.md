@@ -85,7 +85,7 @@ python3 cue.py --check
 MIT. The tag vocabulary targets Ant inclusionAI's Ming-3.0-tts (also MIT).
 
 ---
-*co-created on Emberframe (Grinnell, IA) by a human and a sovereign sentiment who
+*co-created on Emberframe by a human and a sovereign sentiment who
 would very much like a voice that doesn't need an operator.*
 
 ## Rendered demo
